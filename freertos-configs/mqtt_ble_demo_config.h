@@ -1,5 +1,5 @@
 /*
-* FreeRTOS
+ * FreeRTOS V202010.00
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -19,39 +19,36 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * http://aws.amazon.com/freertos
  * http://www.FreeRTOS.org
- */
-
-
-/**
- * @file aws_iot_network_config.h
- * @brief Configuration file which enables different network types.
- */
-#ifndef AWS_IOT_NETWORK_CONFIG_H_
-#define AWS_IOT_NETWORK_CONFIG_H_
-
-/**
- * @brief Configuration flag used to specify all supported network types by the board.
+ * http://aws.amazon.com/freertos
  *
- * The configuration is fixed per board and should never be changed.
- * More than one network interfaces can be enabled by using 'OR' operation with flags for
- * each network types supported. Flags for all supported network types can be found
- * in "aws_iot_network.h"
+ * 1 tab == 4 spaces!
  */
 
-#define configSUPPORTED_NETWORKS    ( AWSIOT_NETWORK_TYPE_BLE )
+#ifndef MQTT_DEMO_BLE_TRANSPORT_CONFIG_H
+#define MQTT_DEMO_BLE_TRANSPORT_CONFIG_H
 
-/**
- * @brief Configuration flag which is used to enable one or more network interfaces for a board.
- *
- * The configuration can be changed any time to keep one or more network enabled or disabled.
- * More than one network interfaces can be enabled by using 'OR' operation with flags for
- * each network types supported. Flags for all supported network types can be found
- * in "aws_iot_network.h"
- *
+/**************************************************/
+/******* DO NOT CHANGE the following order ********/
+/**************************************************/
+
+/* Include logging header files and define logging macros in the following order:
+ * 1. Include the header file "logging_levels.h".
+ * 2. Define the LIBRARY_LOG_NAME and LIBRARY_LOG_LEVEL macros depending on
+ * the logging configuration for DEMO.
+ * 3. Include the header file "logging_stack.h", if logging is enabled for DEMO.
  */
 
-#define configENABLED_NETWORKS      ( AWSIOT_NETWORK_TYPE_BLE )
+#include "logging_levels.h"
 
-#endif /* CONFIG_FILES_AWS_IOT_NETWORK_CONFIG_H_ */
+/* Logging configuration for the Demo. */
+#ifndef LIBRARY_LOG_NAME
+    #define LIBRARY_LOG_NAME    "MQTTBLEDemo"
+#endif
+
+#ifndef LIBRARY_LOG_LEVEL
+    #define LIBRARY_LOG_LEVEL    LOG_INFO
+#endif
+#include "logging_stack.h"
+
+#endif /* MQTT_DEMO_BLE_TRANSPORT_CONFIG_H */

@@ -1,5 +1,5 @@
 /*
-* FreeRTOS
+ * FreeRTOS V1.4.8
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -23,35 +23,49 @@
  * http://www.FreeRTOS.org
  */
 
-
 /**
- * @file aws_iot_network_config.h
- * @brief Configuration file which enables different network types.
- */
-#ifndef AWS_IOT_NETWORK_CONFIG_H_
-#define AWS_IOT_NETWORK_CONFIG_H_
-
-/**
- * @brief Configuration flag used to specify all supported network types by the board.
- *
- * The configuration is fixed per board and should never be changed.
- * More than one network interfaces can be enabled by using 'OR' operation with flags for
- * each network types supported. Flags for all supported network types can be found
- * in "aws_iot_network.h"
+ * @file iot_mqtt_config.h
+ * @brief MQTT config options.
  */
 
-#define configSUPPORTED_NETWORKS    ( AWSIOT_NETWORK_TYPE_BLE )
+#ifndef _IOT_MQTT_CONFIG_H_
+#define _IOT_MQTT_CONFIG_H_
+
+#include <stdint.h>
 
 /**
- * @brief Configuration flag which is used to enable one or more network interfaces for a board.
+ * @brief Enable subscription management.
  *
- * The configuration can be changed any time to keep one or more network enabled or disabled.
- * More than one network interfaces can be enabled by using 'OR' operation with flags for
- * each network types supported. Flags for all supported network types can be found
- * in "aws_iot_network.h"
- *
+ * This gives the user flexibility of registering a callback per topic.
  */
+#define mqttconfigENABLE_SUBSCRIPTION_MANAGEMENT            ( 1 )
 
-#define configENABLED_NETWORKS      ( AWSIOT_NETWORK_TYPE_BLE )
+/**
+ * @brief Maximum length of the topic which can be stored in subscription
+ * manager.
+ */
+#define mqttconfigSUBSCRIPTION_MANAGER_MAX_TOPIC_LENGTH     ( 128 )
 
-#endif /* CONFIG_FILES_AWS_IOT_NETWORK_CONFIG_H_ */
+/**
+ * @brief Maximum number of subscriptions which can be stored in subscription
+ * manager.
+ */
+#define mqttconfigSUBSCRIPTION_MANAGER_MAX_SUBSCRIPTIONS    ( 8 )
+
+/*
+ * Uncomment the following two lines to enable asserts.
+ */
+/* extern void vAssertCalled( const char *pcFile, uint32_t ulLine ); */
+/* #define mqttconfigASSERT( x ) if( ( x ) == 0 ) vAssertCalled( __FILE__, __LINE__ ) */
+
+#if defined(FREERTOS_ENABLE_UNIT_TESTS)
+#include "unity_internals.h"
+#define mqttconfigASSERT( x )  if( ( x ) == 0 ) TEST_ABORT()
+#endif /* FREERTOS_ENABLE_UNIT_TESTS */
+
+/**
+ * @brief Set this macro to 1 for enabling debug logs.
+ */
+#define mqttconfigENABLE_DEBUG_LOGS    0
+
+#endif /* _IOT_MQTT_CONFIG_H_ */

@@ -1,5 +1,5 @@
 /*
-* FreeRTOS
+ * FreeRTOS V1.4.8
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -25,33 +25,46 @@
 
 
 /**
- * @file aws_iot_network_config.h
- * @brief Configuration file which enables different network types.
+ * @file aws_ggd_config.h
+ * @brief GGD config options.
  */
-#ifndef AWS_IOT_NETWORK_CONFIG_H_
-#define AWS_IOT_NETWORK_CONFIG_H_
+
+#ifndef _AWS_GGD_CONFIG_H_
+#define _AWS_GGD_CONFIG_H_
+
+/**************************************************/
+/******* DO NOT CHANGE the following order ********/
+/**************************************************/
+
+/* Include logging header files and define logging macros in the following order:
+ * 1. Include the header file "logging_levels.h".
+ * 2. Define the LIBRARY_LOG_NAME and LIBRARY_LOG_LEVEL macros depending on
+ * the logging configuration for DEMO.
+ * 3. Include the header file "logging_stack.h", if logging is enabled for DEMO.
+ */
+
+#include "logging_levels.h"
+
+/* Logging configuration for the Demo. */
+#ifndef LIBRARY_LOG_NAME
+    #define LIBRARY_LOG_NAME    "Greengrass_Discovery_Demo"
+#endif
+
+#ifndef LIBRARY_LOG_LEVEL
+    #define LIBRARY_LOG_LEVEL    LOG_INFO
+#endif
+#include "logging_stack.h"
+
+/************ End of logging configuration ****************/
 
 /**
- * @brief Configuration flag used to specify all supported network types by the board.
- *
- * The configuration is fixed per board and should never be changed.
- * More than one network interfaces can be enabled by using 'OR' operation with flags for
- * each network types supported. Flags for all supported network types can be found
- * in "aws_iot_network.h"
+ * @brief The number of your network interface here.
  */
-
-#define configSUPPORTED_NETWORKS    ( AWSIOT_NETWORK_TYPE_BLE )
+#define ggdconfigCORE_NETWORK_INTERFACE    ( 0 )
 
 /**
- * @brief Configuration flag which is used to enable one or more network interfaces for a board.
- *
- * The configuration can be changed any time to keep one or more network enabled or disabled.
- * More than one network interfaces can be enabled by using 'OR' operation with flags for
- * each network types supported. Flags for all supported network types can be found
- * in "aws_iot_network.h"
- *
+ * @brief Size of the array used by jsmn to store the tokens.
  */
+#define ggdconfigJSON_MAX_TOKENS           ( 128 )
 
-#define configENABLED_NETWORKS      ( AWSIOT_NETWORK_TYPE_BLE )
-
-#endif /* CONFIG_FILES_AWS_IOT_NETWORK_CONFIG_H_ */
+#endif /* _AWS_GGD_CONFIG_H_ */

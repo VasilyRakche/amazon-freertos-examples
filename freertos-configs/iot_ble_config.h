@@ -1,5 +1,5 @@
 /*
-* FreeRTOS
+ * FreeRTOS V1.4.2
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -23,35 +23,19 @@
  * http://www.FreeRTOS.org
  */
 
-
 /**
- * @file aws_iot_network_config.h
- * @brief Configuration file which enables different network types.
- */
-#ifndef AWS_IOT_NETWORK_CONFIG_H_
-#define AWS_IOT_NETWORK_CONFIG_H_
-
-/**
- * @brief Configuration flag used to specify all supported network types by the board.
- *
- * The configuration is fixed per board and should never be changed.
- * More than one network interfaces can be enabled by using 'OR' operation with flags for
- * each network types supported. Flags for all supported network types can be found
- * in "aws_iot_network.h"
+ * @file iot_ble_config.h
+ * @brief BLE configuration overrides for ESP32 board.
  */
 
-#define configSUPPORTED_NETWORKS    ( AWSIOT_NETWORK_TYPE_BLE )
 
-/**
- * @brief Configuration flag which is used to enable one or more network interfaces for a board.
- *
- * The configuration can be changed any time to keep one or more network enabled or disabled.
- * More than one network interfaces can be enabled by using 'OR' operation with flags for
- * each network types supported. Flags for all supported network types can be found
- * in "aws_iot_network.h"
- *
- */
+#ifndef _IOT_BLE_CONFIG_H_
+#define _IOT_BLE_CONFIG_H_
 
-#define configENABLED_NETWORKS      ( AWSIOT_NETWORK_TYPE_BLE )
+/* Device name for this peripheral device. */
+#define IOT_BLE_DEVICE_COMPLETE_LOCAL_NAME                      "ESP32"
 
-#endif /* CONFIG_FILES_AWS_IOT_NETWORK_CONFIG_H_ */
+/* Include BLE default config at bottom to set the default values for the configurations which are not overridden */
+#include "iot_ble_config_defaults.h"
+
+#endif /* _IOT_BLE_CONFIG_H_ */

@@ -1,5 +1,5 @@
 /*
-* FreeRTOS
+ * FreeRTOS V1.4.7
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -25,33 +25,48 @@
 
 
 /**
- * @file aws_iot_network_config.h
- * @brief Configuration file which enables different network types.
+ * @file iot_secure_sockets_config.h
+ * @brief Secure sockets configuration options.
  */
-#ifndef AWS_IOT_NETWORK_CONFIG_H_
-#define AWS_IOT_NETWORK_CONFIG_H_
+
+#ifndef _IOT_SECURE_SOCKETS_CONFIG_H_
+#define _IOT_SECURE_SOCKETS_CONFIG_H_
 
 /**
- * @brief Configuration flag used to specify all supported network types by the board.
+ * @brief Byte order of the target MCU.
  *
- * The configuration is fixed per board and should never be changed.
- * More than one network interfaces can be enabled by using 'OR' operation with flags for
- * each network types supported. Flags for all supported network types can be found
- * in "aws_iot_network.h"
+ * Valid values are pdLITTLE_ENDIAN and pdBIG_ENDIAN.
  */
-
-#define configSUPPORTED_NETWORKS    ( AWSIOT_NETWORK_TYPE_BLE )
+#define socketsconfigBYTE_ORDER              pdLITTLE_ENDIAN
 
 /**
- * @brief Configuration flag which is used to enable one or more network interfaces for a board.
- *
- * The configuration can be changed any time to keep one or more network enabled or disabled.
- * More than one network interfaces can be enabled by using 'OR' operation with flags for
- * each network types supported. Flags for all supported network types can be found
- * in "aws_iot_network.h"
- *
+ * @brief Default socket send timeout.
  */
+#define socketsconfigDEFAULT_SEND_TIMEOUT    ( 10000 )
 
-#define configENABLED_NETWORKS      ( AWSIOT_NETWORK_TYPE_BLE )
+/**
+ * @brief Default socket receive timeout.
+ */
+#define socketsconfigDEFAULT_RECV_TIMEOUT    ( 10000 )
 
-#endif /* CONFIG_FILES_AWS_IOT_NETWORK_CONFIG_H_ */
+/**
+ * @brief Enable metrics of secure socket.
+ */
+#define AWS_IOT_SECURE_SOCKETS_METRICS_ENABLED    ( 1 )
+
+/**
+ * @brief Stack depth for the task that runs the receive callback function
+ *
+ * When SOCKETS_SetSockOpt() is called with SOCKETS_SO_WAKEUP_CALLBACK and
+ * a function pointer, a task is created to run the callback each time the
+ * socket becomes ready.  This is the number of words (not bytes!) to allocate
+ * for use as the task’s stack.
+ */
+#define socketsconfigRECEIVE_CALLBACK_TASK_STACK_DEPTH      1024u
+
+/**
+ * @brief Default max socket number support
+ */
+#define socketsconfigDEFAULT_MAX_NUM_SECURE_SOCKETS     10
+
+#endif /* _IOT_SECURE_SOCKETS_CONFIG_H_ */
